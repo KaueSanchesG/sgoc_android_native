@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="novo_item">Novo item</string>
+    <string name="item_nome">Nome do item</string>
+    <string name="item_nome_descricao">Digite o nome do item...</string>
+    <string name="item_tipo">Tipo do item</string>
+    <string name="botao_limpar">Limpar</string>
+    <string name="botao_salvar">Salvar</string>
+    <string name="item_tipo_do_quantitativo">Tipo do quantitativo</string>
+    <string name="as_entradas_foram_apagadas">As entradas foram apagadas!</string>
+    <string name="o_valor_de_nome_deve_ser_preenchido">O valor de nome deve ser preenchido!</string>
+    <string name="deve_se_selecionar_a_nacionalidade_do_item">Deve-se selecionar a nacionalidade do item!</string>
+    <string name="nome_do_item">"Nome do item: "</string>
+    <string name="tipo_de_quantitativo">"Tipo de quantitativo: "</string>
+    <string name="sim">Sim</string>
+    <string name="nao">Não</string>
+    <string name="items_cadastrados">Items cadastrados</string>
+    <string name="do_tipo_quantitativo">" do tipo quantitativo "</string>
+    <string name="student_name">Autor: Kauê S. Gonçalves</string>
+    <string name="app_description">O SGOC ou Sistema de Gerenciamento Orçamentário Civil, é uma aplicação criada para solucionar os problemas dos construtores civis autônomos que dependem de anotações manuais e repetitivas ao realizar um orçamento para um cliente.</string>
+    <string name="class_name">Curso de Especialização em Tecnologia Java</string>
+    <string name="university_name">Universidade Tecnológica Federal do Paraná</string>
+    <string name="create_new">Novo</string>
+    <string name="about">Sobre</string>
+    <string name="controle_de_itens">Controle de Item</string>
+    <string name="adicionar">Adicionar</string>
+    <string name="editar">Editar</string>
+    <string name="remove">Excluir</string>
+    <string name="editando_item">Editando item</string>
+    <string name="quantity_unity">Unidade</string>
+    <string name="quantity_centimeter">Centímetro</string>
+    <string name="quantity_meter">Metro</string>
+    <string name="quantity_square_meter">Metro quadrado</string>
+    <string name="quantity_cubic_meter">Metro cúbico</string>
+</resources>

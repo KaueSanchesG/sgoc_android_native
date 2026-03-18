@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name" translatable="false">SGOC</string>
+    <string name="novo_item">New item</string>
+    <string name="item_nome">Item name</string>
+    <string name="item_nome_descricao">Type the item name...</string>
+    <string name="item_tipo">Item type</string>
+    <string name="botao_limpar">Clear</string>
+    <string name="botao_salvar">Save</string>
+    <string name="item_tipo_do_quantitativo">Quantity type</string>
+    <string name="as_entradas_foram_apagadas">The entries have been cleaned!</string>
+    <string name="o_valor_de_nome_deve_ser_preenchido">The name field must be filled!</string>
+    <string name="deve_se_selecionar_a_nacionalidade_do_item">The item nationality must be selected!</string>
+    <string name="nome_do_item">"Item name: "</string>
+    <string name="tipo_de_quantitativo">"Quantity type: "</string>
+    <string name="sim">Yes</string>
+    <string name="nao">No</string>
+    <string name="items_cadastrados">Created items</string>
+    <string name="item" translatable="false">"Item "</string>
+    <string name="do_tipo_quantitativo">of quantity type</string>
+    <string name="student_name">Author: Kauê S. Gonçalves</string>
+    <string name="logo_utfpr" translatable="false">Logo UTFPR</string>
+    <string name="app_description">SGOC or Civil Construction Budgeting System, is an application created as a solution to the autonomus builders that rely on manual and handwritting notes when doing a budget to a customer.</string>
+    <string name="class_name">"Specialization Course in Java Technology "</string>
+    <string name="student_email" translatable="false">E-mail: kauesanches123@gmail.com</string>
+    <string name="university_name">"Federal Technological University of Paraná "</string>
+    <string name="create_new">New</string>
+    <string name="about">About</string>
+    <string name="controle_de_itens">Item management</string>
+    <string name="adicionar">Add</string>
+    <string name="editar">Edit</string>
+    <string name="remove">Delete</string>
+    <string name="editando_item">Editing item</string>
+    <string name="quantity_unity">Unity</string>
+    <string name="quantity_centimeter">Centimeter</string>
+    <string name="quantity_meter">Meter</string>
+    <string name="quantity_square_meter">Square Meter</string>
+    <string name="quantity_cubic_meter">Cubic meter</string>
+    <string name="client_managment">Client management</string>
+    <string name="budget_management">Budget management</string>
+</resources>

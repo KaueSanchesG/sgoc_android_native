@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menuItemAdd"
+        android:icon="@drawable/ic_action_add"
+        android:title="@string/adicionar"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/menuItemAbout"
+        android:title="@string/about"
+        app:showAsAction="collapseActionView" />
+    <item
+        android:id="@+id/menuItemSort"
+        android:icon="@drawable/ic_action_ascending"
+        android:title="sortingMenu"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menuItemThemeMode"
+        android:icon="@drawable/ic_light_mode"
+        android:title="themeChanged"
+        app:showAsAction="always" />
+</menu>

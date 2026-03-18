@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="tipo_quantitativo">
+        <item>Unidade</item>
+        <item>Centímetro</item>
+        <item>Metro</item>
+        <item>Metro Quadrado</item>
+        <item>Metro Cúbico</item>
+    </string-array>
+
+    <string-array name="item_name">
+        <item>Buxa</item>
+        <item>Parafuso</item>
+        <item>Joelho</item>
+        <item>Cano PVC</item>
+        <item>Malha de aço</item>
+        <item>Luminária</item>
+        <item>Vaso sanitário</item>
+        <item>Porcelanato 120x60</item>
+        <item>Porcelanato 100x100</item>
+        <item>Cimento 50kg</item>
+    </string-array>
+
+    <integer-array name="item_quantity_type">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>0</item>
+        <item>1</item>
+        <item>3</item>
+        <item>4</item>
+    </integer-array>
+
+    <integer-array name="item_has_paraguai">
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+    </integer-array>
+
+    <integer-array name="item_type">
+        <item>1</item>
+        <item>0</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>0</item>
+        <item>1</item>
+        <item>1</item>
+        <item>0</item>
+    </integer-array>
+</resources>
