@@ -20,6 +20,7 @@ import java.util.List;
 
 import br.edu.utfpr.kaue.sgoc.R;
 import br.edu.utfpr.kaue.sgoc.model.QuantityType;
+import br.edu.utfpr.kaue.sgoc.ui.util.Alert;
 import br.edu.utfpr.kaue.sgoc.ui.util.QuantityTypeFormatter;
 
 public class ItemActivity extends AppCompatActivity {
@@ -103,10 +104,7 @@ public class ItemActivity extends AppCompatActivity {
         QuantityType itemQuantityType = QuantityType.values()[spinnerItemQuantityType.getSelectedItemPosition()];
 
         if (itemName.isBlank()) {
-            Toast.makeText(
-                    this,
-                    R.string.o_valor_de_nome_deve_ser_preenchido,
-                    Toast.LENGTH_LONG).show();
+            Alert.showAlert(this, R.string.o_valor_de_nome_deve_ser_preenchido);
 
             requestFocusOnItemName();
 
