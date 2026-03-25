@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuItemAdd"
+        android:id="@+id/menuBudgetAdd"
         android:icon="@drawable/ic_action_add"
         android:title="@string/adicionar"
         app:showAsAction="collapseActionView" />
@@ -12,7 +12,7 @@
         android:title="@string/about"
         app:showAsAction="collapseActionView" />
     <item
-        android:id="@+id/menuItemSort"
+        android:id="@+id/menuBudgetSort"
         android:icon="@drawable/ic_action_ascending"
         android:title="sortingMenu"
         app:showAsAction="ifRoom" />

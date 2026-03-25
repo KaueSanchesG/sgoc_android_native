@@ -37,4 +37,6 @@
     <string name="quantity_cubic_meter">Cubic meter</string>
     <string name="client_managment">Client management</string>
     <string name="budget_management">Budget management</string>
+    <string name="orcamento">budget</string>
+    <string name="cliente">client</string>
 </resources>

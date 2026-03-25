@@ -3,16 +3,16 @@
     <item
         android:id="@+id/budget"
         android:icon="@drawable/ic_account_balance"
-        android:title="budget" />
+        android:title="@string/orcamento" />
 
     <item
         android:id="@+id/client"
         android:icon="@drawable/ic_client"
-        android:title="client" />
+        android:title="@string/cliente" />
 
     <item
         android:id="@+id/item"
         android:icon="@drawable/ic_tool"
-        android:title="items" />
+        android:title="@string/item" />
 
 </menu>

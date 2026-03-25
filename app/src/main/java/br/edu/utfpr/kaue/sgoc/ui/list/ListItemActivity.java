@@ -23,6 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.view.ActionMode;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,6 +34,7 @@ import br.edu.utfpr.kaue.sgoc.ui.form.ItemActivity;
 import br.edu.utfpr.kaue.sgoc.R;
 import br.edu.utfpr.kaue.sgoc.model.Item;
 import br.edu.utfpr.kaue.sgoc.model.QuantityType;
+import br.edu.utfpr.kaue.sgoc.ui.util.BottomNavListener;
 
 public class ListItemActivity extends AppCompatActivity {
 
@@ -42,6 +45,7 @@ public class ListItemActivity extends AppCompatActivity {
     private int selectedPosition = -1;
 
     private ActionMode actionMode;
+    private ItemAdapter itemAdapter;
 
     private View selectedView;
     private Drawable backgroundDrawable;
@@ -55,7 +59,8 @@ public class ListItemActivity extends AppCompatActivity {
     private boolean lightTheme = true;
 
     private MenuItem menuItemSorting;
-    private MenuItem menuItemTheme;
+    private MenuItem menuTheme;
+    private BottomNavigationView bottomNav;
 
     private ActionMode.Callback actionCallback = new ActionMode.Callback() {
         @Override
@@ -99,7 +104,6 @@ public class ListItemActivity extends AppCompatActivity {
         }
     };
 
-    private ItemAdapter itemAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,10 +115,13 @@ public class ListItemActivity extends AppCompatActivity {
         setTitle(getString(R.string.controle_de_itens));
 
         listViewItems = findViewById(R.id.listViewItems);
+        bottomNav = findViewById(R.id.bottomNavigation);
 
         populateData();
 
         registerForContextMenu(listViewItems);
+
+        BottomNavListener.setup(this, bottomNav, R.id.item);
     }
 
     private void populateData() {
@@ -152,6 +159,7 @@ public class ListItemActivity extends AppCompatActivity {
             }
         });
     }
+
 
     public void openAbout() {
         Intent intentOpening = new Intent(this, AboutActivity.class);
@@ -194,7 +202,7 @@ public class ListItemActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.opc_items, menu);
 
         menuItemSorting = menu.findItem(R.id.menuItemSort);
-        menuItemTheme = menu.findItem(R.id.menuItemThemeMode);
+        menuTheme = menu.findItem(R.id.menuThemeMode);
         return true;
     }
 
@@ -230,7 +238,7 @@ public class ListItemActivity extends AppCompatActivity {
         if (idMenuItem == R.id.menuItemAdd) {
             openNewItem();
             return true;
-        } else if (idMenuItem == R.id.menuItemAbout) {
+        } else if (idMenuItem == R.id.menuAbout) {
             openAbout();
             return true;
         } else if (idMenuItem == R.id.menuItemSort) {
@@ -238,7 +246,7 @@ public class ListItemActivity extends AppCompatActivity {
             updateSortingIcon();
             sortList();
             return true;
-        } else if (idMenuItem == R.id.menuItemThemeMode) {
+        } else if (idMenuItem == R.id.menuThemeMode) {
             writeLightThemePreferences(!lightTheme);
             updateThemeIcon();
             changeTheme();
@@ -248,139 +256,139 @@ public class ListItemActivity extends AppCompatActivity {
         }
     }
 
-@Override
-public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-    super.onCreateContextMenu(menu, v, menuInfo);
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
 
-    getMenuInflater().inflate(R.menu.opc_item_selected, menu);
-}
-
-@Override
-public boolean onContextItemSelected(@NonNull MenuItem item) {
-    AdapterView.AdapterContextMenuInfo info;
-    info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-
-    int idMenuItem = item.getItemId();
-
-    if (idMenuItem == R.id.menuItemEdit) {
-        editItem();
-        return true;
-    } else if (idMenuItem == R.id.menuItemRemove) {
-        removeItem();
-        return true;
-    } else {
-        return super.onContextItemSelected(item);
+        getMenuInflater().inflate(R.menu.opc_item_selected, menu);
     }
-}
 
-private void removeItem() {
-    itemList.remove(selectedPosition);
+    @Override
+    public boolean onContextItemSelected(@NonNull MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info;
+        info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
-    itemAdapter.notifyDataSetChanged();
-}
+        int idMenuItem = item.getItemId();
 
-ActivityResultLauncher<Intent> launcherEditItem = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-        new ActivityResultCallback<ActivityResult>() {
-            @Override
-            public void onActivityResult(ActivityResult ar) {
-                if (ar.getResultCode() == ItemActivity.RESULT_OK) {
-                    Intent intent = ar.getData();
+        if (idMenuItem == R.id.menuItemEdit) {
+            editItem();
+            return true;
+        } else if (idMenuItem == R.id.menuItemRemove) {
+            removeItem();
+            return true;
+        } else {
+            return super.onContextItemSelected(item);
+        }
+    }
 
-                    Bundle bundle = intent.getExtras();
+    private void removeItem() {
+        itemList.remove(selectedPosition);
 
-                    if (bundle != null) {
-                        String name = bundle.getString(ItemActivity.KEY_NAME);
-                        String quantityType = bundle.getString(ItemActivity.KEY_QUANTITY_TYPE);
+        itemAdapter.notifyDataSetChanged();
+    }
 
-                        Item item = itemList.get(selectedPosition);
+    ActivityResultLauncher<Intent> launcherEditItem = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult ar) {
+                    if (ar.getResultCode() == ItemActivity.RESULT_OK) {
+                        Intent intent = ar.getData();
 
-                        item.setName(name);
+                        Bundle bundle = intent.getExtras();
 
-                        QuantityType quantityTypeValue = QuantityType.valueOf(quantityType);
-                        item.setQuantityType(quantityTypeValue);
+                        if (bundle != null) {
+                            String name = bundle.getString(ItemActivity.KEY_NAME);
+                            String quantityType = bundle.getString(ItemActivity.KEY_QUANTITY_TYPE);
 
-                        sortList();
+                            Item item = itemList.get(selectedPosition);
+
+                            item.setName(name);
+
+                            QuantityType quantityTypeValue = QuantityType.valueOf(quantityType);
+                            item.setQuantityType(quantityTypeValue);
+
+                            sortList();
+                        }
+                    }
+                    selectedPosition = -1;
+
+                    if (actionMode != null) {
+                        actionMode.finish();
                     }
                 }
-                selectedPosition = -1;
+            });
 
-                if (actionMode != null) {
-                    actionMode.finish();
-                }
-            }
-        });
+    private void editItem() {
 
-private void editItem() {
+        Item item = itemList.get(selectedPosition);
 
-    Item item = itemList.get(selectedPosition);
+        Intent intentOpening = new Intent(this, ItemActivity.class);
 
-    Intent intentOpening = new Intent(this, ItemActivity.class);
+        intentOpening.putExtra(ItemActivity.KEY_MODO, ItemActivity.KEY_EDIT);
 
-    intentOpening.putExtra(ItemActivity.KEY_MODO, ItemActivity.KEY_EDIT);
+        intentOpening.putExtra(ItemActivity.KEY_NAME, item.getName());
+        intentOpening.putExtra(ItemActivity.KEY_QUANTITY_TYPE, item.getQuantityType().name());
 
-    intentOpening.putExtra(ItemActivity.KEY_NAME, item.getName());
-    intentOpening.putExtra(ItemActivity.KEY_QUANTITY_TYPE, item.getQuantityType().name());
-
-    launcherEditItem.launch(intentOpening);
-}
-
-private void readPreferences() {
-    SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
-
-    ascSort = shared.getBoolean(KEY_ASC_SORT, ascSort);
-    lightTheme = shared.getBoolean(KEY_LIGHT_THEME, lightTheme);
-}
-
-private void writeAscSortPreferences(boolean newValue) {
-    SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = shared.edit();
-
-    editor.putBoolean(KEY_ASC_SORT, newValue);
-    editor.commit();
-
-    ascSort = newValue;
-}
-
-private void writeLightThemePreferences(boolean newValue) {
-    SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
-    SharedPreferences.Editor editor = shared.edit();
-
-    editor.putBoolean(KEY_LIGHT_THEME, newValue);
-    editor.commit();
-
-    lightTheme = newValue;
-}
-
-private void updateThemeIcon(){
-    if (lightTheme) {
-        menuItemTheme.setIcon(R.drawable.ic_light_mode);
-    }else {
-        menuItemTheme.setIcon(R.drawable.ic_dark_mode);
+        launcherEditItem.launch(intentOpening);
     }
-}
 
-    private void changeTheme(){
-        if (lightTheme){
+    private void readPreferences() {
+        SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
+
+        ascSort = shared.getBoolean(KEY_ASC_SORT, ascSort);
+        lightTheme = shared.getBoolean(KEY_LIGHT_THEME, lightTheme);
+    }
+
+    private void writeAscSortPreferences(boolean newValue) {
+        SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putBoolean(KEY_ASC_SORT, newValue);
+        editor.commit();
+
+        ascSort = newValue;
+    }
+
+    private void writeLightThemePreferences(boolean newValue) {
+        SharedPreferences shared = getSharedPreferences(SHARED_PREFERENCES_PATH, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = shared.edit();
+
+        editor.putBoolean(KEY_LIGHT_THEME, newValue);
+        editor.commit();
+
+        lightTheme = newValue;
+    }
+
+    private void updateThemeIcon() {
+        if (lightTheme) {
+            menuTheme.setIcon(R.drawable.ic_light_mode);
+        } else {
+            menuTheme.setIcon(R.drawable.ic_dark_mode);
+        }
+    }
+
+    private void changeTheme() {
+        if (lightTheme) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        }else {
+        } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         }
     }
 
-private void sortList() {
-    if (ascSort) {
-        Collections.sort(itemList, Item.ascSort);
-    } else {
-        Collections.sort(itemList, Item.descSort);
+    private void sortList() {
+        if (ascSort) {
+            Collections.sort(itemList, Item.ascSort);
+        } else {
+            Collections.sort(itemList, Item.descSort);
+        }
+        itemAdapter.notifyDataSetChanged();
     }
-    itemAdapter.notifyDataSetChanged();
-}
 
-private void updateSortingIcon() {
-    if (ascSort) {
-        menuItemSorting.setIcon(R.drawable.ic_action_ascending);
-    } else {
-        menuItemSorting.setIcon(R.drawable.ic_action_descending);
+    private void updateSortingIcon() {
+        if (ascSort) {
+            menuItemSorting.setIcon(R.drawable.ic_action_ascending);
+        } else {
+            menuItemSorting.setIcon(R.drawable.ic_action_descending);
+        }
     }
-}
 }
