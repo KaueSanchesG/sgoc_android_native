@@ -1,7 +1,12 @@
 package br.edu.utfpr.kaue.sgoc.model;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import java.util.Comparator;
 
+@Entity
 public class Item {
 
     public static Comparator<Item> ascSort = new Comparator<Item>() {
@@ -18,7 +23,12 @@ public class Item {
         }
     };
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
+    @ColumnInfo(index = true)
     private String name;
+
     private QuantityType quantityType;
 
     public Item(String nome, QuantityType quantityType) {
@@ -42,6 +52,13 @@ public class Item {
         this.quantityType = quantityType;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     @Override
     public String toString() {
