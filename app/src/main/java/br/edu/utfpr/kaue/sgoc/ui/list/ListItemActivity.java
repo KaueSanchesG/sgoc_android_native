@@ -1,6 +1,7 @@
 package br.edu.utfpr.kaue.sgoc.ui.list;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -26,14 +27,15 @@ import androidx.appcompat.view.ActionMode;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
-import br.edu.utfpr.kaue.sgoc.ui.about.AboutActivity;
-import br.edu.utfpr.kaue.sgoc.ui.form.ItemActivity;
 import br.edu.utfpr.kaue.sgoc.R;
+import br.edu.utfpr.kaue.sgoc.data.ItemDatabase;
 import br.edu.utfpr.kaue.sgoc.model.Item;
 import br.edu.utfpr.kaue.sgoc.model.QuantityType;
+import br.edu.utfpr.kaue.sgoc.ui.about.AboutActivity;
+import br.edu.utfpr.kaue.sgoc.ui.form.ItemActivity;
+import br.edu.utfpr.kaue.sgoc.ui.util.Alert;
 import br.edu.utfpr.kaue.sgoc.ui.util.BottomNavListener;
 
 public class ListItemActivity extends AppCompatActivity {
@@ -128,6 +130,14 @@ public class ListItemActivity extends AppCompatActivity {
 
         itemList = new ArrayList<>();
 
+        ItemDatabase database = ItemDatabase.getInstance(this);
+
+        if (ascSort) {
+            itemList = database.getItemDao().queryAllAscending();
+        } else {
+            itemList = database.getItemDao().queryAllDescending();
+        }
+
         Item item;
         QuantityType quantityType;
 
@@ -176,10 +186,11 @@ public class ListItemActivity extends AppCompatActivity {
                         Bundle bundle = intent.getExtras();
 
                         if (bundle != null) {
-                            String name = bundle.getString(ItemActivity.KEY_NAME);
-                            String quantityType = bundle.getString(ItemActivity.KEY_QUANTITY_TYPE);
+                            long id = bundle.getLong(ItemActivity.KEY_ID);
 
-                            Item item = new Item(name, QuantityType.valueOf(quantityType));
+                            ItemDatabase database = ItemDatabase.getInstance(ListItemActivity.this);
+
+                            Item item = database.getItemDao().queryForId(id);
 
                             itemList.add(item);
 
@@ -282,9 +293,29 @@ public class ListItemActivity extends AppCompatActivity {
     }
 
     private void removeItem() {
-        itemList.remove(selectedPosition);
+        final Item item = itemList.get(selectedPosition);
 
-        itemAdapter.notifyDataSetChanged();
+        String message = "Do you want to delete? " + item.getName();
+
+        DialogInterface.OnClickListener acceptListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                ItemDatabase database = ItemDatabase.getInstance(ListItemActivity.this);
+
+                int deletedRows = database.getItemDao().delete(item);
+
+                if (deletedRows != 1) {
+                    Alert.showAlert(ListItemActivity.this, R.string.erro_ao_tentar_excluir);
+                    return;
+                }
+                itemList.remove(selectedPosition);
+                itemAdapter.notifyDataSetChanged();
+                actionMode.finish();
+            }
+        };
+
+        Alert.acceptAction(this, message, acceptListener, null);
+
     }
 
     ActivityResultLauncher<Intent> launcherEditItem = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
@@ -297,15 +328,13 @@ public class ListItemActivity extends AppCompatActivity {
                         Bundle bundle = intent.getExtras();
 
                         if (bundle != null) {
-                            String name = bundle.getString(ItemActivity.KEY_NAME);
-                            String quantityType = bundle.getString(ItemActivity.KEY_QUANTITY_TYPE);
+                            long id = bundle.getLong(ItemActivity.KEY_ID);
 
-                            Item item = itemList.get(selectedPosition);
+                            ItemDatabase database = ItemDatabase.getInstance(ListItemActivity.this);
 
-                            item.setName(name);
+                            final Item item = database.getItemDao().queryForId(id);
 
-                            QuantityType quantityTypeValue = QuantityType.valueOf(quantityType);
-                            item.setQuantityType(quantityTypeValue);
+                            itemList.set(selectedPosition, item);
 
                             sortList();
                         }
@@ -326,8 +355,7 @@ public class ListItemActivity extends AppCompatActivity {
 
         intentOpening.putExtra(ItemActivity.KEY_MODO, ItemActivity.KEY_EDIT);
 
-        intentOpening.putExtra(ItemActivity.KEY_NAME, item.getName());
-        intentOpening.putExtra(ItemActivity.KEY_QUANTITY_TYPE, item.getQuantityType().name());
+        intentOpening.putExtra(ItemActivity.KEY_ID, item.getId());
 
         launcherEditItem.launch(intentOpening);
     }
@@ -376,13 +404,22 @@ public class ListItemActivity extends AppCompatActivity {
     }
 
     private void sortList() {
+        ItemDatabase database = ItemDatabase.getInstance(this);
+
+        List<Item> novaLista;
+
         if (ascSort) {
-            Collections.sort(itemList, Item.ascSort);
+            novaLista = database.getItemDao().queryAllAscending();
         } else {
-            Collections.sort(itemList, Item.descSort);
+            novaLista = database.getItemDao().queryAllDescending();
         }
+
+        itemList.clear();
+        itemList.addAll(novaLista);
+
         itemAdapter.notifyDataSetChanged();
     }
+
 
     private void updateSortingIcon() {
         if (ascSort) {

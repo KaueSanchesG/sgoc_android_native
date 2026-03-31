@@ -19,15 +19,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.edu.utfpr.kaue.sgoc.R;
+import br.edu.utfpr.kaue.sgoc.data.ItemDatabase;
+import br.edu.utfpr.kaue.sgoc.model.Item;
 import br.edu.utfpr.kaue.sgoc.model.QuantityType;
 import br.edu.utfpr.kaue.sgoc.ui.util.Alert;
 import br.edu.utfpr.kaue.sgoc.ui.util.QuantityTypeFormatter;
 
 public class ItemActivity extends AppCompatActivity {
 
-    public static final String KEY_NAME = "KEY_NAME";
-    public static final String KEY_QUANTITY_TYPE = "KEY_QUANTITY_TYPE";
-
+    public static final String KEY_ID = "ID";
     public static final String KEY_MODO = "MODO";
     public static final int KEY_NEW = 0;
     public static final int KEY_EDIT = 1;
@@ -35,8 +35,9 @@ public class ItemActivity extends AppCompatActivity {
     private EditText editTextItemName;
     private Spinner spinnerItemQuantityType;
 
-
     private int modo;
+
+    private Item dbItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +51,7 @@ public class ItemActivity extends AppCompatActivity {
 
         List<String> spinnerItems = new ArrayList<>();
 
-        for (QuantityType q: QuantityType.values()){
+        for (QuantityType q : QuantityType.values()) {
             spinnerItems.add(QuantityTypeFormatter.format(this, q));
         }
 
@@ -75,13 +76,14 @@ public class ItemActivity extends AppCompatActivity {
             } else {
                 setTitle(R.string.editando_item);
 
-                String name = bundle.getString(ItemActivity.KEY_NAME);
-                String quantityType = bundle.getString(ItemActivity.KEY_QUANTITY_TYPE);
+                long id = bundle.getLong(KEY_ID);
 
-                QuantityType quantityTypeValue = QuantityType.valueOf(quantityType);
+                ItemDatabase database = ItemDatabase.getInstance(this);
 
-                editTextItemName.setText(name);
-                spinnerItemQuantityType.setSelection(quantityTypeValue.ordinal());
+                dbItem = database.getItemDao().queryForId(id);
+
+                editTextItemName.setText(dbItem.getName());
+                spinnerItemQuantityType.setSelection(dbItem.getQuantityType().ordinal());
 
             }
         }
@@ -111,11 +113,40 @@ public class ItemActivity extends AppCompatActivity {
             return;
         }
 
+        Item item = new Item(itemName, itemQuantityType);
+
+        if (item.equals(dbItem)) {
+            setResult(ItemActivity.RESULT_CANCELED);
+            finish();
+            return;
+        }
 
         Intent intentResponse = new Intent();
 
-        intentResponse.putExtra(KEY_NAME, itemName);
-        intentResponse.putExtra(KEY_QUANTITY_TYPE, itemQuantityType.name());
+        ItemDatabase database = ItemDatabase.getInstance(this);
+
+        if (modo == KEY_NEW) {
+            long newId = database.getItemDao().insert(item);
+
+            if (newId <= 0){
+                Alert.showAlert(this, R.string.erro_ao_tentar_inserir);
+                return;
+            }
+
+            item.setId(newId);
+
+        }else {
+            item.setId(dbItem.getId());
+
+            int updatedRows = database.getItemDao().update(item);
+
+            if (updatedRows != 1){
+                Alert.showAlert(this, R.string.erro_ao_tentar_alterar);
+                return;
+            }
+        }
+
+        intentResponse.putExtra(KEY_ID, item.getId());
 
         setResult(ItemActivity.RESULT_OK, intentResponse);
 

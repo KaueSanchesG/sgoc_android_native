@@ -4,24 +4,24 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Comparator;
+import java.util.Objects;
 
 @Entity
 public class Item {
 
-    public static Comparator<Item> ascSort = new Comparator<Item>() {
-        @Override
-        public int compare(Item o1, Item o2) {
-            return o1.getName().compareToIgnoreCase(o2.getName());
-        }
-    };
-
-    public static Comparator<Item> descSort = new Comparator<Item>() {
-        @Override
-        public int compare(Item o1, Item o2) {
-            return -1 * o1.getName().compareToIgnoreCase(o2.getName());
-        }
-    };
+//    public static Comparator<Item> ascSort = new Comparator<Item>() {
+//        @Override
+//        public int compare(Item o1, Item o2) {
+//            return o1.getName().compareToIgnoreCase(o2.getName());
+//        }
+//    };
+//
+//    public static Comparator<Item> descSort = new Comparator<Item>() {
+//        @Override
+//        public int compare(Item o1, Item o2) {
+//            return -1 * o1.getName().compareToIgnoreCase(o2.getName());
+//        }
+//    };
 
     @PrimaryKey(autoGenerate = true)
     private long id;
@@ -31,8 +31,8 @@ public class Item {
 
     private QuantityType quantityType;
 
-    public Item(String nome, QuantityType quantityType) {
-        this.name = nome;
+    public Item(String name, QuantityType quantityType) {
+        this.name = name;
         this.quantityType = quantityType;
     }
 
@@ -58,6 +58,18 @@ public class Item {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Item item = (Item) o;
+        return name.equals(item.name) && quantityType == item.quantityType;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, quantityType);
     }
 
     @Override

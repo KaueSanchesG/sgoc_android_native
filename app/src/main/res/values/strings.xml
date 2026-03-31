@@ -42,4 +42,7 @@
     <string name="aviso">Warning</string>
     <string name="ok">OK</string>
     <string name="confirmar">accept</string>
+    <string name="erro_ao_tentar_inserir">Error at insert</string>
+    <string name="erro_ao_tentar_alterar">Error saving changes</string>
+    <string name="erro_ao_tentar_excluir">Error trying to delete</string>
 </resources>
