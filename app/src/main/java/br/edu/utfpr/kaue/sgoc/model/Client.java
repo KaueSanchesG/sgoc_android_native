@@ -16,10 +16,10 @@ public class Client {
 
     private String contact;
 
-    public Client(String name, String address, String phone) {
+    public Client(String name, String address, String contact) {
         this.name = name;
         this.address = address;
-        this.contact = phone;
+        this.contact = contact;
     }
 
     public long getId() {

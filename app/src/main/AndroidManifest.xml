@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SistemaDeGerenciamentoOrçamentárioCivil">
         <activity
+            android:name=".ui.form.ClientActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.list.ListBudgetActivity"
             android:exported="true"
             android:launchMode="singleTask">
@@ -27,11 +30,11 @@
             android:parentActivityName=".ui.list.ListBudgetActivity" />
         <activity
             android:name=".ui.list.ListItemActivity"
-            android:exported="true"/>
+            android:exported="true" />
         <activity
             android:name=".ui.form.ItemActivity"
             android:exported="true"
-            android:parentActivityName=".ui.list.ListBudgetActivity"/>
+            android:parentActivityName=".ui.list.ListBudgetActivity" />
         <activity
             android:name=".ui.list.ListClientActivity"
             android:exported="true" />

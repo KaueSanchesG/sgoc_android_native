@@ -45,4 +45,9 @@
     <string name="erro_ao_tentar_inserir">Error at insert</string>
     <string name="erro_ao_tentar_alterar">Error saving changes</string>
     <string name="erro_ao_tentar_excluir">Error trying to delete</string>
+    <string name="cliente_nome">Client name</string>
+    <string name="endereco">Address</string>
+    <string name="contato">Contact</string>
+    <string name="novo_cliente">New client</string>
+    <string name="editando_cliente">Editing client</string>
 </resources>
