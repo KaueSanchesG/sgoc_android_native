@@ -3,6 +3,8 @@ package br.edu.utfpr.kaue.sgoc.model;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.util.Objects;
+
 @Entity
 public class Client {
     @PrimaryKey(autoGenerate = true)
@@ -12,12 +14,12 @@ public class Client {
 
     private String address;
 
-    private String phone;
+    private String contact;
 
     public Client(String name, String address, String phone) {
         this.name = name;
         this.address = address;
-        this.phone = phone;
+        this.contact = phone;
     }
 
     public long getId() {
@@ -44,11 +46,23 @@ public class Client {
         this.address = address;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getContact() {
+        return contact;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return name.equals(client.name) && address.equals(client.address) && contact.equals( client.contact);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, address, contact);
     }
 }
