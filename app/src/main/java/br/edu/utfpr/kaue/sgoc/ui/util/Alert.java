@@ -46,7 +46,7 @@ public final class Alert {
         builder.setMessage(message);
 
         builder.setPositiveButton(R.string.sim, acceptListener);
-        builder.setPositiveButton(R.string.nao, denyListener);
+        builder.setNegativeButton(R.string.nao, denyListener);
 
         AlertDialog alert = builder.create();
         alert.show();

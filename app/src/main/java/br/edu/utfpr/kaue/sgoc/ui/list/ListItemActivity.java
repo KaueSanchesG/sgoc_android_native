@@ -310,9 +310,13 @@ public class ListItemActivity extends AppCompatActivity {
                 }
                 itemList.remove(selectedPosition);
                 itemAdapter.notifyDataSetChanged();
-                actionMode.finish();
+                if (actionMode != null) {
+                    actionMode.finish();
+                }
             }
         };
+
+
 
         Alert.acceptAction(this, message, acceptListener, null);
 
