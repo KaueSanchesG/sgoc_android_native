@@ -14,7 +14,7 @@ import br.edu.utfpr.kaue.sgoc.model.Client;
 public interface ClientDAO {
 
     @Insert
-    long insert (Client client);
+    long insert(Client client);
 
     @Delete
     int delete(Client client);

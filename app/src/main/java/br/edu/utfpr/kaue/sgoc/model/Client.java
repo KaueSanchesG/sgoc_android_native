@@ -58,7 +58,7 @@ public class Client {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return name.equals(client.name) && address.equals(client.address) && contact.equals( client.contact);
+        return name.equals(client.name) && address.equals(client.address) && contact.equals(client.contact);
     }
 
     @Override

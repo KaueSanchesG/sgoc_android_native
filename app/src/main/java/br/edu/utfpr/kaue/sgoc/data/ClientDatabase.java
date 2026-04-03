@@ -16,9 +16,9 @@ public abstract class ClientDatabase extends RoomDatabase {
     private static ClientDatabase INSTANCE;
 
     public static ClientDatabase getInstance(final Context context) {
-        if (INSTANCE == null){
-            synchronized (ClientDatabase.class){
-                if (INSTANCE == null){
+        if (INSTANCE == null) {
+            synchronized (ClientDatabase.class) {
+                if (INSTANCE == null) {
                     INSTANCE = Room.databaseBuilder(context, ClientDatabase.class, "clients.db").allowMainThreadQueries().build();
                 }
             }

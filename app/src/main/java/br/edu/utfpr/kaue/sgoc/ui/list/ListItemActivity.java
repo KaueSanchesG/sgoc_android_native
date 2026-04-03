@@ -54,7 +54,7 @@ public class ListItemActivity extends AppCompatActivity {
 
     public static final String SHARED_PREFERENCES_PATH = "br.edu.utfpr.kaue.sgoc.PREFERENCES";
 
-    public static final String KEY_ASC_SORT = "ASCENDING_SORT";
+    public static final String KEY_ASC_SORT = "ITEM_ASCENDING_SORT";
     private boolean ascSort = true;
 
     public static final String KEY_LIGHT_THEME = "LIGHT_THEME";
@@ -116,7 +116,7 @@ public class ListItemActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.controle_de_itens));
 
-        listViewItems = findViewById(R.id.listViewItems);
+        listViewItems = findViewById(R.id.listViewItem);
         bottomNav = findViewById(R.id.bottomNavigation);
 
         populateData();
@@ -316,10 +316,7 @@ public class ListItemActivity extends AppCompatActivity {
             }
         };
 
-
-
         Alert.acceptAction(this, message, acceptListener, null);
-
     }
 
     ActivityResultLauncher<Intent> launcherEditItem = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),

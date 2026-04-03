@@ -3,10 +3,13 @@ package br.edu.utfpr.kaue.sgoc.ui.form;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import br.edu.utfpr.kaue.sgoc.R;
@@ -46,9 +49,9 @@ public class ClientActivity extends AppCompatActivity {
         if (bundle != null) {
             modo = bundle.getInt(KEY_MODO);
 
-            if (modo == KEY_NEW){
+            if (modo == KEY_NEW) {
                 setTitle(getString(R.string.novo_cliente));
-            }else {
+            } else {
                 setTitle(getString(R.string.editando_cliente));
 
                 long id = bundle.getLong(KEY_ID);
@@ -105,19 +108,19 @@ public class ClientActivity extends AppCompatActivity {
         if (modo == KEY_NEW) {
             long newId = database.getClientDao().insert(client);
 
-            if (newId <= 0){
+            if (newId <= 0) {
                 Alert.showAlert(this, R.string.erro_ao_tentar_inserir);
                 return;
             }
 
             client.setId(newId);
 
-        }else {
+        } else {
             client.setId(dbClient.getId());
 
             int updatedRows = database.getClientDao().update(client);
 
-            if (updatedRows != 1){
+            if (updatedRows != 1) {
                 Alert.showAlert(this, R.string.erro_ao_tentar_alterar);
                 return;
             }
@@ -130,8 +133,26 @@ public class ClientActivity extends AppCompatActivity {
         finish();
     }
 
-    //onCreateOptiosnMenu
-    //onOptionsItemSelected
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.opc_create_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int idMenuItem = item.getItemId();
+
+        if (idMenuItem == R.id.menuItemSave) {
+            saveActivityValues();
+            return true;
+        } else if (idMenuItem == R.id.menuItemClear) {
+            clearActivity();
+            return true;
+        }else {
+            return super.onOptionsItemSelected(item);
+        }
+    }
 
     private void requestFocusOnItemName() {
         editTextClientName.requestFocus();

@@ -50,4 +50,7 @@
     <string name="contato">Contact</string>
     <string name="novo_cliente">New client</string>
     <string name="editando_cliente">Editing client</string>
+    <string name="nome_do_cliente">Client name:</string>
+    <string name="endereco_do_cliente">Address:</string>
+    <string name="contato_do_cliente">Contact:</string>
 </resources>

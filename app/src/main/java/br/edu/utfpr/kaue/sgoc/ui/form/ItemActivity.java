@@ -155,7 +155,7 @@ public class ItemActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.opc_create_item, menu);
+        getMenuInflater().inflate(R.menu.opc_create_menu, menu);
         return true;
     }
 

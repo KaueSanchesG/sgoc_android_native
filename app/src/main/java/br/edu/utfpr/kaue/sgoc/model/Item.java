@@ -75,6 +75,6 @@ public class Item {
     @Override
     public String toString() {
         return name + '\n' +
-               quantityType.toString() + '\n';
+                quantityType.toString() + '\n';
     }
 }
