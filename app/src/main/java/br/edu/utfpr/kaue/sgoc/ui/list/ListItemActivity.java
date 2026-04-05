@@ -40,7 +40,7 @@ import br.edu.utfpr.kaue.sgoc.ui.util.BottomNavListener;
 
 public class ListItemActivity extends AppCompatActivity {
 
-    private ListView listViewItems;
+    private ListView listViewItem;
 
     private List<Item> itemList;
 
@@ -102,7 +102,7 @@ public class ListItemActivity extends AppCompatActivity {
             selectedView = null;
             backgroundDrawable = null;
 
-            listViewItems.setEnabled(true);
+            listViewItem.setEnabled(true);
         }
     };
 
@@ -116,12 +116,12 @@ public class ListItemActivity extends AppCompatActivity {
 
         setTitle(getString(R.string.controle_de_itens));
 
-        listViewItems = findViewById(R.id.listViewItem);
+        listViewItem = findViewById(R.id.listViewItem);
         bottomNav = findViewById(R.id.bottomNavigation);
 
         populateData();
 
-        registerForContextMenu(listViewItems);
+        registerForContextMenu(listViewItem);
 
         BottomNavListener.setup(this, bottomNav, R.id.item);
     }
@@ -138,16 +138,11 @@ public class ListItemActivity extends AppCompatActivity {
             itemList = database.getItemDao().queryAllDescending();
         }
 
-        Item item;
-        QuantityType quantityType;
-
-        QuantityType[] quantityTypes = QuantityType.values();
-
         itemAdapter = new ItemAdapter(this, itemList);
 
-        listViewItems.setAdapter(itemAdapter);
+        listViewItem.setAdapter(itemAdapter);
 
-        listViewItems.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        listViewItem.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 if (actionMode != null) {
@@ -161,7 +156,7 @@ public class ListItemActivity extends AppCompatActivity {
 
                 view.setBackgroundColor(Color.LTGRAY);
 
-                listViewItems.setEnabled(false);
+                listViewItem.setEnabled(false);
 
                 actionMode = startSupportActionMode(actionCallback);
 
@@ -295,7 +290,7 @@ public class ListItemActivity extends AppCompatActivity {
     private void removeItem() {
         final Item item = itemList.get(selectedPosition);
 
-        String message = "Do you want to delete? " + item.getName();
+        String message = getString(R.string.deseja_excluir) + item.getName();
 
         DialogInterface.OnClickListener acceptListener = new DialogInterface.OnClickListener() {
             @Override

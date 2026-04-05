@@ -53,4 +53,5 @@
     <string name="nome_do_cliente">Client name:</string>
     <string name="endereco_do_cliente">Address:</string>
     <string name="contato_do_cliente">Contact:</string>
+    <string name="deseja_excluir">"Do you want to delete? "</string>
 </resources>

@@ -13,7 +13,8 @@
         android:theme="@style/Theme.SistemaDeGerenciamentoOrçamentárioCivil">
         <activity
             android:name=".ui.form.ClientActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.list.ListBudgetActivity" />
         <activity
             android:name=".ui.list.ListBudgetActivity"
             android:exported="true"

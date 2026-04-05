@@ -71,7 +71,6 @@ public class ItemAdapter extends BaseAdapter {
         holder.textViewItemNameValue.setText(String.valueOf(item.getName()));
 
 
-//        holder.textViewItemQuantityTypeValue.setText(quantityTypes[item.getQuantityType().ordinal()]);
         holder.textViewItemQuantityTypeValue.setText(
                 QuantityTypeFormatter.format(context, item.getQuantityType())
         );
