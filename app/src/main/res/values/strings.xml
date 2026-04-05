@@ -40,11 +40,11 @@
     <string name="orcamento">budget</string>
     <string name="cliente">client</string>
     <string name="aviso">Warning</string>
-    <string name="ok">OK</string>
+    <string name="ok" translatable="false">OK</string>
     <string name="confirmar">accept</string>
-    <string name="erro_ao_tentar_inserir">Error at insert</string>
-    <string name="erro_ao_tentar_alterar">Error saving changes</string>
-    <string name="erro_ao_tentar_excluir">Error trying to delete</string>
+    <string name="erro_ao_tentar_inserir">Error at insert!</string>
+    <string name="erro_ao_tentar_alterar">Error saving changes!</string>
+    <string name="erro_ao_tentar_excluir">Error trying to delete!</string>
     <string name="cliente_nome">Client name</string>
     <string name="endereco">Address</string>
     <string name="contato">Contact</string>

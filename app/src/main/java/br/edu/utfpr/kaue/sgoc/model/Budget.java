@@ -12,15 +12,15 @@ public class Budget {
 
     private String description;
 
-    private Client client;
+    private long clientId;
 
     private boolean isComplete;
 
     private Date date;
 
-    public Budget(String description, Client client, boolean isComplete, Date date) {
+    public Budget(String description, long clientid) {
         this.description = description;
-        this.client = client;
+        this.clientId = clientid;
         this.isComplete = false;
         this.date = new Date();
     }
@@ -41,12 +41,12 @@ public class Budget {
         this.description = description;
     }
 
-    public Client getClient() {
-        return client;
+    public long getClientId() {
+        return clientId;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setClientId(long clientId) {
+        this.clientId = clientId;
     }
 
     public boolean isComplete() {

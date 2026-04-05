@@ -32,4 +32,22 @@
     <string name="quantity_meter">Metro</string>
     <string name="quantity_square_meter">Metro quadrado</string>
     <string name="quantity_cubic_meter">Metro cúbico</string>
+    <string name="client_managment">Controle de cliente</string>
+    <string name="budget_management">Controle de orçamento</string>
+    <string name="orcamento">Orçamento</string>
+    <string name="cliente">cliente</string>
+    <string name="aviso">Aviso</string>
+    <string name="confirmar">Confirmar</string>
+    <string name="erro_ao_tentar_inserir">Erro ao tentar inserir!</string>
+    <string name="erro_ao_tentar_alterar">Erro ao salvar alterações!</string>
+    <string name="erro_ao_tentar_excluir">Erro ao tentar excluir!</string>
+    <string name="cliente_nome">Nome do cliente</string>
+    <string name="endereco">Endereço</string>
+    <string name="contato">Contato</string>
+    <string name="novo_cliente">Novo cliente</string>
+    <string name="editando_cliente">Editando cliente</string>
+    <string name="nome_do_cliente">Nome do cliente:</string>
+    <string name="endereco_do_cliente">Endereço:</string>
+    <string name="contato_do_cliente">Contato:</string>
+    <string name="deseja_excluir">Você quer excluír?</string>
 </resources>
