@@ -54,4 +54,6 @@
     <string name="endereco_do_cliente">Address:</string>
     <string name="contato_do_cliente">Contact:</string>
     <string name="deseja_excluir">"Do you want to delete? "</string>
+    <string name="finalizado">Done</string>
+    <string name="aguardando">Waiting</string>
 </resources>

@@ -27,4 +27,7 @@ public interface BudgetItemDAO {
 
     @Query("SELECT budgetitem.* FROM budgetitem INNER JOIN item ON item.id = budgetitem.itemId ORDER BY item.name ASC")
     List<BudgetItem> queryAll();
+
+    @Query("SELECT COUNT(*)==0 FROM budgetitem WHERE budgetId=:budgetId")
+    boolean isBudgetDone(long budgetId);
 }
