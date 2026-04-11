@@ -18,9 +18,9 @@ public class Budget {
 
     private Date date;
 
-    public Budget(String description, long clientid) {
+    public Budget(String description, long clientId) {
         this.description = description;
-        this.clientId = clientid;
+        this.clientId = clientId;
         this.isComplete = false;
         this.date = new Date();
     }

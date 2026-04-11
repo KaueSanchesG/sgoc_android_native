@@ -1,6 +1,7 @@
 package br.edu.utfpr.kaue.sgoc.model;
 
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -18,6 +19,10 @@ public class BudgetItem {
 
     private double laborCost;
 
+    public BudgetItem() {
+    }
+
+    @Ignore
     public BudgetItem(long budgetId, long itemId, float quantity, String description, double laborCost) {
         this.budgetId = budgetId;
         this.itemId = itemId;
@@ -26,6 +31,7 @@ public class BudgetItem {
         this.laborCost = laborCost;
     }
 
+    @Ignore
     public BudgetItem(long budgetId, long itemId, float quantity, String description) {
         this.budgetId = budgetId;
         this.itemId = itemId;

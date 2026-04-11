@@ -7,8 +7,9 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
 import br.edu.utfpr.kaue.sgoc.model.BudgetItem;
+import br.edu.utfpr.kaue.sgoc.model.Item;
 
-@Database(entities = {BudgetItem.class}, version = 1, exportSchema = false)
+@Database(entities = {BudgetItem.class, Item.class}, version = 1, exportSchema = false)
 public abstract class BudgetItemDatabase extends RoomDatabase {
 
     public abstract BudgetItemDAO getBudgetItemDAO();
